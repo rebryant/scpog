@@ -1,0 +1,17 @@
+# Makefile created by Randal E. Bryant, 2023
+CC=gcc
+CXX=g++
+OPT=-O2
+#OPT=-O0
+CFLAGS=-g $(OPT) -Wno-nullability-completeness
+CPPFLAGS=-g $(OPT) -Wno-nullability-completeness -std=c++11 -I..
+
+FILES= Options.o System.o
+
+all: $(FILES)
+
+clean:
+	rm -f *.o *~
+
+
+

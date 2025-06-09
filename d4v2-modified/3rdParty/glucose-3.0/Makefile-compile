@@ -1,0 +1,41 @@
+CC=gcc
+CXX=g++
+OPT=-O2
+#OPT=-O0
+CFLAGS=-g $(OPT) -Wno-nullability-completeness
+CPPFLAGS=-g $(OPT) -Wno-nullability-completeness -std=c++11 -I..
+
+UFILES= utils/Options.o utils/System.o
+CFILES= core/Solver.o
+MFILE = core/Main.o
+LIB=glucose.a
+TARG=glucose
+LIBS = $(LIB) -lz
+
+all: lib prog
+
+lib: $(LIB)
+
+$(LIB):
+	cd utils ; make -f Makefile-compile
+	cd core ; make -f Makefile-compile
+	ar cr $(LIB) $(UFILES) $(CFILES)
+	cp -p core/Solver.h .
+
+prog: $(TARG)
+
+$(TARG): $(LIB)
+	cd utils ; make -f Makefile-compile
+	cd core ; make -f Makefile-compile
+	$(CXX) $(CFLAGS) -o $(TARG) $(MFILE) $(LIBS)
+
+all: $(FILES)
+
+clean:
+	cd utils ; make clean -f Makefile-compile
+	cd core ; make clean -f Makefile-compile
+	rm -f *.o *~
+	rm -f $(LIB) $(TARG) Solver.h
+
+
+
