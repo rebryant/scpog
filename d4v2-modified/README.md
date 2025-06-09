@@ -19,7 +19,7 @@ $ make all -f Makefile-compile MACHINE=XXXX
 ```
 
 where XXXX can be 'linux', 'mac', or 'arm'.
-The executable is called 'd4t'
+The executable is called 'd4v2-mod'
 
 # Other actions
 
