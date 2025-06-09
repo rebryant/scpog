@@ -1,0 +1,82 @@
+CC=gcc
+CXX=g++
+OPT=-O2
+#OPT=-O0
+
+MACHINE=linux
+
+CPPFLAGS=-g $(OPT) -Wno-nullability-completeness -std=c++17
+
+LIBS = -L/usr/local/lib -lz -lgmpxx -lgmp -lboost_program_options 3rdParty/patoh/libpatoh.a 3rdParty/glucose-3.0/glucose.a
+
+TARG=d4v2-mod
+
+ALLOBJS = src/Main.o \
+    src/caching/BucketAllocator.o \
+    src/caching/DataInfo.o \
+    src/caching/cnf/BucketInConstruction.o \
+    src/hashing/hash_bytes.o \
+    src/heuristics/PartitioningHeuristic.o \
+    src/heuristics/PartitioningHeuristicNone.o \
+    src/heuristics/PhaseHeuristic.o \
+    src/heuristics/PhaseHeuristicFalse.o \
+    src/heuristics/PhaseHeuristicOccurrence.o \
+    src/heuristics/PhaseHeuristicPolarity.o \
+    src/heuristics/PhaseHeuristicTrue.o \
+    src/heuristics/ScoringMethod.o \
+    src/heuristics/cnf/PartitioningHeuristicBipartite.o \
+    src/heuristics/cnf/PartitioningHeuristicBipartiteDual.o \
+    src/heuristics/cnf/PartitioningHeuristicBipartitePrimal.o \
+    src/heuristics/cnf/PartitioningHeuristicStatic.o \
+    src/heuristics/cnf/PartitioningHeuristicStaticMulti.o \
+    src/heuristics/cnf/PartitioningHeuristicStaticNone.o \
+    src/heuristics/cnf/PartitioningHeuristicStaticSingle.o \
+    src/heuristics/cnf/PartitioningHeuristicStaticSingleDual.o \
+    src/heuristics/cnf/PartitioningHeuristicStaticSinglePrimal.o \
+    src/heuristics/cnf/PhaseSelectorDynamic.o \
+    src/heuristics/cnf/PhaseSelectorManager.o \
+    src/heuristics/cnf/PhaseSelectorNone.o \
+    src/heuristics/cnf/PhaseSelectorStatic.o \
+    src/heuristics/cnf/ScoringMethodDlcs.o \
+    src/heuristics/cnf/ScoringMethodJwts.o \
+    src/heuristics/cnf/ScoringMethodMom.o \
+    src/heuristics/cnf/ScoringMethodVsads.o \
+    src/heuristics/cnf/ScoringMethodVsids.o \
+    src/hyperGraph/HyperEdge.o \
+    src/hyperGraph/HyperGraph.o \
+    src/hyperGraph/HyperGraphExtractorDual.o \
+    src/hyperGraph/HyperGraphExtractorPrimal.o \
+    src/methods/MethodManager.o \
+    src/methods/QueryManager.o \
+    src/partitioner/PartitionerManager.o \
+    src/partitioner/PartitionerPatoh.o \
+    src/preprocs/PreprocManager.o \
+    src/preprocs/cnf/PreprocBackboneCnf.o \
+    src/preprocs/cnf/PreprocBasicCnf.o \
+    src/problem/ProblemManager.o \
+    src/problem/ProblemTypes.o \
+    src/problem/cnf/ParserDimacs.o \
+    src/problem/cnf/ProblemManagerCnf.o \
+    src/solvers/ActivityManager.o \
+    src/solvers/WrapperSolver.o \
+    src/solvers/cnf/WrapperGlucose.o \
+    src/solvers/cnf/WrapperMinisat.o \
+    src/solvers/cnf/minisat/Solver.o \
+    src/specs/SpecManager.o \
+    src/specs/cnf/SpecManagerCnf.o \
+    src/specs/cnf/SpecManagerCnfDyn.o \
+    src/utils/AtMost1Extractor.o \
+    src/utils/EquivExtractor.o \
+    src/utils/cnf/AndGatesExtractor.o
+
+all:
+	cd 3rdParty ; make all -f Makefile-compile MACHINE=$(MACHINE)
+	cd src; make all -f Makefile-compile
+	$(CXX) -o $(TARG) $(CFLAGS) $(ALLOBJS) $(LIBS)
+
+clean:
+	cd 3rdParty ; make clean -f Makefile-compile 
+	cd src; make clean -f Makefile-compile
+	rm -f $(TARG) *~
+	
+

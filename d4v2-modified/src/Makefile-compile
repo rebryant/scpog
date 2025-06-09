@@ -1,0 +1,43 @@
+CC=gcc
+CXX=g++
+OPT=-O2
+#OPT=-O0
+
+CFLAGS=-g $(OPT) -Wno-nullability-completeness
+CPPFLAGS=-g $(OPT) -Wno-nullability-completeness -std=c++17 -I.
+INCLUDE = -I ../
+
+OBJS = Main.o
+
+all: $(OBJS)
+	cd caching; make all -f Makefile-compile 
+	cd hashing; make all -f Makefile-compile 
+	cd heuristics; make all -f Makefile-compile
+	cd hyperGraph; make all -f Makefile-compile
+	cd methods; make all -f Makefile-compile
+	cd partitioner; make all -f Makefile-compile
+	cd preprocs; make all -f Makefile-compile
+	cd problem; make all -f Makefile-compile
+	cd solvers; make all -f Makefile-compile
+	cd specs; make all -f Makefile-compile
+	cd utils; make all -f Makefile-compile
+	
+
+clean:
+	cd caching; make clean -f Makefile-compile 
+	cd hashing; make clean -f Makefile-compile 
+	cd heuristics; make clean -f Makefile-compile
+	cd hyperGraph; make clean -f Makefile-compile
+	cd methods; make clean -f Makefile-compile
+	cd partitioner; make clean -f Makefile-compile
+	cd preprocs; make clean -f Makefile-compile
+	cd problem; make clean -f Makefile-compile
+	cd solvers; make clean -f Makefile-compile
+	cd specs; make clean -f Makefile-compile
+	cd utils; make clean -f Makefile-compile
+	rm -f *~
+
+.SUFFIXES: .o .cpp
+
+.cpp.o:
+	$(CXX) $(CPPFLAGS) $(INCLUDE) -c $< -o $@
