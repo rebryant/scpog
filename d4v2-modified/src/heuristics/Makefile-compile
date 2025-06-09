@@ -1,0 +1,30 @@
+CC=gcc
+CXX=g++
+OPT=-O2
+#OPT=-O0
+
+CFLAGS=-g $(OPT) -Wno-nullability-completeness
+CPPFLAGS=-g $(OPT) -Wno-nullability-completeness -std=c++17 -I.
+INCLUDE = -I ../../
+
+OBJS = PartitioningHeuristic.o \
+    PartitioningHeuristicNone.o \
+    PhaseHeuristic.o \
+    PhaseHeuristicFalse.o \
+    PhaseHeuristicOccurrence.o \
+    PhaseHeuristicPolarity.o \
+    PhaseHeuristicTrue.o \
+    ScoringMethod.o
+
+
+all: $(OBJS)
+	cd cnf; make all -f Makefile-compile 
+
+clean:
+	cd cnf; make clean -f Makefile-compile 
+	rm -f *~ *.o
+
+.SUFFIXES: .o .cpp
+
+.cpp.o:
+	$(CXX) $(CPPFLAGS) $(INCLUDE) -c $< -o $@

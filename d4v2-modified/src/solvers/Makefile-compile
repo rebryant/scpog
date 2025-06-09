@@ -1,0 +1,23 @@
+CC=gcc
+CXX=g++
+OPT=-O2
+#OPT=-O0
+
+CFLAGS=-g $(OPT) -Wno-nullability-completeness
+CPPFLAGS=-g $(OPT) -Wno-nullability-completeness -std=c++17 -I.
+INCLUDE = -I ../../ -I../../3rdParty/glucose-3.0/ 
+
+OBJS = ActivityManager.o \
+    WrapperSolver.o
+    
+all: $(OBJS)
+	cd cnf; make all -f Makefile-compile 
+
+clean:
+	cd cnf; make clean -f Makefile-compile 
+	rm -f *~ *.o
+
+.SUFFIXES: .o .cpp
+
+.cpp.o:
+	$(CXX) $(CPPFLAGS) $(INCLUDE) -c $< -o $@

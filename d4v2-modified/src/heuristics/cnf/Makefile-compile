@@ -1,0 +1,39 @@
+CC=gcc
+CXX=g++
+OPT=-O2
+#OPT=-O0
+
+CFLAGS=-g $(OPT) -Wno-nullability-completeness
+CPPFLAGS=-g $(OPT) -Wno-nullability-completeness -std=c++17 -I.
+INCLUDE = -I ../../../
+
+OBJS = PartitioningHeuristicBipartite.o \
+    PartitioningHeuristicBipartiteDual.o \
+    PartitioningHeuristicBipartitePrimal.o \
+    PartitioningHeuristicStatic.o \
+    PartitioningHeuristicStaticMulti.o \
+    PartitioningHeuristicStaticNone.o  \
+    PartitioningHeuristicStaticSingle.o \
+    PartitioningHeuristicStaticSingleDual.o \
+    PartitioningHeuristicStaticSinglePrimal.o \
+    PhaseSelectorDynamic.o \
+    PhaseSelectorManager.o \
+    PhaseSelectorNone.o \
+    PhaseSelectorStatic.o \
+    ScoringMethodDlcs.o \
+    ScoringMethodJwts.o \
+    ScoringMethodMom.o \
+    ScoringMethodVsads.o \
+    ScoringMethodVsids.o 
+
+
+all: $(OBJS)
+
+clean:
+	rm -f *~ *.o
+	
+.SUFFIXES: .o .cpp
+
+.cpp.o:
+	$(CXX) $(CPPFLAGS) $(INCLUDE) -c $< -o $@
+	

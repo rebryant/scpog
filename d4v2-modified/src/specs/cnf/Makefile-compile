@@ -1,0 +1,23 @@
+CC=gcc
+CXX=g++
+OPT=-O2
+#OPT=-O0
+
+CFLAGS=-g $(OPT) -Wno-nullability-completeness
+CPPFLAGS=-g $(OPT) -Wno-nullability-completeness -std=c++17 -I.
+INCLUDE = -I ../../../
+
+OBJS = SpecManagerCnf.o \
+    SpecManagerCnfDyn.o
+
+
+all: $(OBJS)
+
+clean:
+	rm -f *~ *.o
+	
+.SUFFIXES: .o .cpp
+
+.cpp.o:
+	$(CXX) $(CPPFLAGS) $(INCLUDE) -c $< -o $@
+	
