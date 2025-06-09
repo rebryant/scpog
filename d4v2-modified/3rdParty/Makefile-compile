@@ -1,0 +1,14 @@
+
+MACHINE=linux
+
+all:
+	cd glucose-3.0; make all -f Makefile-compile
+	cd patoh; make all -f Makefile-compile MACHINE=$(MACHINE)
+
+clean:
+	cd glucose-3.0; make clean -f Makefile-compile
+	cd patoh; make clean -f Makefile-compile
+	rm -f *~
+
+
+	

@@ -1,0 +1,10 @@
+MACHINE=linux
+
+all: libpatoh.a
+
+libpatoh.a: libpatoh-$(MACHINE).a
+	 cp -p libpatoh-$(MACHINE).a libpatoh.a
+
+clean:
+	rm -f libpatoh.a *~
+	
