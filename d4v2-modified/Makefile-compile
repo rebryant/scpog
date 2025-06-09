@@ -7,7 +7,7 @@ MACHINE=linux
 
 CPPFLAGS=-g $(OPT) -Wno-nullability-completeness -std=c++17
 
-LIBS = -L/usr/local/lib -lz -lgmpxx -lgmp -lboost_program_options 3rdParty/patoh/libpatoh.a 3rdParty/glucose-3.0/glucose.a
+LIBS = -L/usr/local/lib -L/opt/homebrew/lib -lz -lgmpxx -lgmp -lboost_program_options 3rdParty/patoh/libpatoh.a 3rdParty/glucose-3.0/glucose.a
 
 TARG=d4v2-mod
 
@@ -72,7 +72,7 @@ ALLOBJS = src/Main.o \
 all:
 	cd 3rdParty ; make all -f Makefile-compile MACHINE=$(MACHINE)
 	cd src; make all -f Makefile-compile
-	$(CXX) -o $(TARG) $(CFLAGS) $(ALLOBJS) $(LIBS)
+	$(CXX) -o $(TARG) $(CFLAGS) $(ALLOBJS) $(LIBS) $(INCLUDE)
 
 clean:
 	cd 3rdParty ; make clean -f Makefile-compile 

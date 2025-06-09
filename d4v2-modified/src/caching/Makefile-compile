@@ -3,9 +3,11 @@ CXX=g++
 OPT=-O2
 #OPT=-O0
 
+MACHINE=linux
+
 CFLAGS=-g $(OPT) -Wno-nullability-completeness
 CPPFLAGS=-g $(OPT) -Wno-nullability-completeness -std=c++17 -I.
-INCLUDE = -I ../../
+INCLUDE =  -I ../../
 
 OBJS = BucketAllocator.o DataInfo.o
 

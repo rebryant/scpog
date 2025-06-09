@@ -5,7 +5,7 @@ OPT=-O2
 
 CFLAGS=-g $(OPT) -Wno-nullability-completeness
 CPPFLAGS=-g $(OPT) -Wno-nullability-completeness -std=c++17 -I.
-INCLUDE = -I ../../../
+INCLUDE = -I /opt/homebrew/include -I ../../../
 
 OBJS = PartitioningHeuristicBipartite.o \
     PartitioningHeuristicBipartiteDual.o \

@@ -12,7 +12,7 @@ LIB=glucose.a
 TARG=glucose
 LIBS = $(LIB) -lz
 
-all: lib prog
+all: lib
 
 lib: $(LIB)
 
@@ -28,8 +28,6 @@ $(TARG): $(LIB)
 	cd utils ; make -f Makefile-compile
 	cd core ; make -f Makefile-compile
 	$(CXX) $(CFLAGS) -o $(TARG) $(MFILE) $(LIBS)
-
-all: $(FILES)
 
 clean:
 	cd utils ; make clean -f Makefile-compile
