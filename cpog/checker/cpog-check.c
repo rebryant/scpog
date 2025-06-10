@@ -2119,12 +2119,15 @@ int processed_count = 0;
 int cpog_delete_range(propagate_t *prop, int cid_min, int cid_max);
 
 void setup_deletion_queue() {
-    clause_queue_count = (input_clause_count + CLAUSE_DELETION_BLOCK - 1)/CLAUSE_DELETION_BLOCK;
+    int block_size = (input_clause_count+thread_limit-1) / thread_limit;
+    if (block_size > CLAUSE_DELETION_BLOCK)
+	block_size = CLAUSE_DELETION_BLOCK;
+    clause_queue_count = (input_clause_count + block_size - 1)/block_size;
     clause_queue = calloc(clause_queue_count, sizeof(clause_range_t));
     int cid_min;
     int qi = 0;
-    for (cid_min = 1; cid_min <= input_clause_count; cid_min += CLAUSE_DELETION_BLOCK) {
-	int cid_max = cid_min + CLAUSE_DELETION_BLOCK-1;
+    for (cid_min = 1; cid_min <= input_clause_count; cid_min += block_size) {
+	int cid_max = cid_min + block_size-1;
 	if (cid_max > input_clause_count)
 	    cid_max = input_clause_count;
 	clause_queue[qi].cid_min = cid_min;
