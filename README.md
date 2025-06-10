@@ -13,13 +13,13 @@ this POG is logically equivalent to the input formula.
 * **d4v2-modified**
     A version of the D4 knowledge compiler, modified to generate Skolem assignments
 * **cpog:**
-    Code for the CPOG generator and unverified checker
+    Code for the SCPOG generator and unverified checker
 * **cake_scpog:**
     Code for the formally verified checker, based on CakeML/HOL4
 * **benchmarks:**
     A sample set of benchmarks from the 2024 standard and weighted projected model counting competitions
 * **tests:**
-    Two very simple test problems
+    Some simple test problems
 * **tools:**
     Code for a scripting program that runs the entire toolchain
 
