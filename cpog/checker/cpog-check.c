@@ -222,12 +222,12 @@ void err_printf(char *fun, char *fmt, ...) {
 }
 
 void info_printf(int vlevel, char *fmt, ...) {
+    if (vlevel > verb_level)
+	return;
 #if THREADING
     if (thread_limit > 1)
 	pthread_mutex_lock(&print_lock);
 #endif /* THREADING */
-    if (vlevel > verb_level)
-	return;
     va_list ap;
     fprintf(stdout, "File %s. Line %d:", current_file, line_count+1);
     va_start(ap, fmt);
