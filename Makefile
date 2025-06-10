@@ -22,8 +22,8 @@ install-arm:
 	cd d4v2-modified ; make all -f Makefile-compile MACHINE=arm
 
 clean:
-	cd test ; make clean
-	cd benchmark ; make clean
+	cd tests ; make clean
+	cd benchmarks ; make clean
 
 superclean: clean
 	cd cake_scpog ; make clean
