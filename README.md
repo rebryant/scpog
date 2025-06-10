@@ -30,8 +30,8 @@ Running the toolchain using prototype (unverified) tools requires the following:
 
 * A C and C++ compiler
 * A python3 interpreter
-* An installed version of the [CaDiCal SAT solver](https://github.com/arminbiere/cadical)
-* An installed version of the [lrat-trim proof trimmer](https://github.com/arminbiere/lrat-trim)
+* An installed version of the [CaDiCal SAT solver](https://github.com/arminbiere/cadical), with 'cadical' on the executable path.
+* An installed version of the [lrat-trim proof trimmer](https://github.com/arminbiere/lrat-trim), with 'lrat-trim' on the executable path.
 
 The programs can be compiled for 3 different platforms:
 
