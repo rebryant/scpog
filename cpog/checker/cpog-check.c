@@ -250,12 +250,12 @@ void info_printf(int vlevel, char *fmt, ...) {
 }
 
 void data_printf(int vlevel, char *fmt, ...) {
+    if (vlevel > verb_level)
+	return;
 #if THREADING
     if (thread_limit > 1)
 	pthread_mutex_lock(&print_lock);
 #endif /* THREADING */
-    if (vlevel > verb_level)
-	return;
     va_list ap;
     fprintf(stdout, "%s: ", DPREFIX);
     va_start(ap, fmt);
