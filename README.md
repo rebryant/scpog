@@ -16,9 +16,9 @@ this POG is logically equivalent to the input formula.
     Code for the CPOG generator and unverified checker
 * **cake_scpog:**
     Code for the formally verified checker, based on CakeML/HOL4
-* **benchmark:**
+* **benchmarks:**
     A sample set of benchmarks from the 2024 standard and weighted projected model counting competitions
-* **test:**
+* **tests:**
     Two very simple test problems
 * **tools:**
     Code for a scripting program that runs the entire toolchain

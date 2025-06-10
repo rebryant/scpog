@@ -31,7 +31,7 @@ superclean: clean
 	cd d4v2-modified ; make clean -f Makefile-compile
 
 test:
-	cd test ; make test
+	cd tests ; make test
 
 benchmark:
-	cd benchmark ; make run
+	cd benchmarks ; make run
