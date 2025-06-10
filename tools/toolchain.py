@@ -246,7 +246,7 @@ def runD4(root, home, logFile, force):
     nnfName = nnfNamer(root, home)
     if not force and os.path.exists(nnfName):
         return True
-    cmd = [genProgramPath("d4v2-mod", "d4v2-modified"), '-i', cnfName, '-m', 'ddnnf-compiler']
+    cmd = [genProgramPath("d4v2-mod", "d4v2-modified"), '--input', cnfName, '-m', 'ddnnf-compiler']
     if not forwardOnly:
         cmd += ['--skolem', 'on']
     cmd += ['--dump-ddnnf',  nnfName]
