@@ -20,6 +20,7 @@
 
 #include <boost/multiprecision/cpp_int.hpp>
 #include <boost/multiprecision/gmp.hpp>
+#include "../Erd.hpp"
 
 #include "DpllStyleMethod.hpp"
 #include "MaxSharpSAT.hpp"
@@ -80,6 +81,10 @@ MethodManager *MethodManager::makeMethodManager(po::variables_map &vm,
                                                 std::ostream &out) {
   out << "c [CONSTRUCTOR] MethodManager: " << meth << "\n";
   boost::multiprecision::mpf_float::default_precision(precision);
+  if (isFloat && precision < 64)
+    out << "c [CONSTRUCTOR] Performing FP math with ERD" << "\n";
+  else
+    out << "c [CONSTRUCTOR] Performing " << (isFloat ? "FP" : "integer") << " math with MPF(" << precision << ")" << "\n";
 
   LastBreathPreproc lastBreath;
   ProblemManager *runProblem = runPreproc(vm, problem, out, lastBreath);
@@ -92,42 +97,61 @@ MethodManager *MethodManager::makeMethodManager(po::variables_map &vm,
       // out,                                 lastBreath);
       return new DpllStyleMethod<mpz::mpz_int, mpz::mpz_int>(
           vm, meth, isFloat, runProblem, out, lastBreath);
-    else
+    else if (precision >= 64)
       return new DpllStyleMethod<mpz::mpf_float, mpz::mpf_float>(
           vm, meth, isFloat, runProblem, out, lastBreath);
+    else
+      return new DpllStyleMethod<Erd, Erd>(
+          vm, meth, isFloat, runProblem, out, lastBreath);
+
   }
 
   if (meth == "ddnnf-compiler") {
     if (!isFloat)
       return new DpllStyleMethod<mpz::mpz_int, Node<mpz::mpz_int> *>(
           vm, meth, isFloat, runProblem, out, lastBreath);
-    else
+    else if (precision >= 64)
       return new DpllStyleMethod<mpz::mpf_float, Node<mpz::mpf_float> *>(
           vm, meth, isFloat, runProblem, out, lastBreath);
+    else
+      return new DpllStyleMethod<Erd, Node<Erd> *>(
+	  vm, meth, isFloat, runProblem, out, lastBreath);
   }
 
   if (meth == "projMC") {
     if (!isFloat)
       return new ProjMCMethod<mpz::mpz_int>(vm, isFloat, runProblem,
                                             lastBreath);
-    return new ProjMCMethod<mpz::mpf_float>(vm, isFloat, runProblem,
-                                            lastBreath);
+    else if (precision >= 64)
+      return new ProjMCMethod<mpz::mpf_float>(vm, isFloat, runProblem,
+					      lastBreath);
+    else
+      return new ProjMCMethod<Erd>(vm, isFloat, runProblem,
+				   lastBreath);
   }
 
   if (meth == "max#sat") {
     if (!isFloat)
       return new MaxSharpSAT<mpz::mpz_int>(vm, meth, isFloat, runProblem, out,
                                            lastBreath);
-    return new MaxSharpSAT<mpz::mpf_float>(vm, meth, isFloat, runProblem, out,
-                                           lastBreath);
+    else if (precision >= 64)
+      return new MaxSharpSAT<mpz::mpf_float>(vm, meth, isFloat, runProblem, out,
+					     lastBreath);
+    else
+      return new MaxSharpSAT<Erd>(vm, meth, isFloat, runProblem, out,
+				  lastBreath);
   }
 
   if (meth == "min#sat") {
     if (!isFloat)
       return new MinSharpSAT<mpz::mpz_int>(vm, meth, isFloat, runProblem, out,
                                            lastBreath);
-    return new MinSharpSAT<mpz::mpf_float>(vm, meth, isFloat, runProblem, out,
-                                           lastBreath);
+    else if (precision >= 64)
+      return new MinSharpSAT<mpz::mpf_float>(vm, meth, isFloat, runProblem, out,
+					     lastBreath);
+    else
+      return new MinSharpSAT<Erd>(vm, meth, isFloat, runProblem, out,
+				  lastBreath);
   }
 
   throw(FactoryException("Cannot create a MethodManager", __FILE__, __LINE__));

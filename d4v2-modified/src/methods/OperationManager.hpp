@@ -17,6 +17,7 @@
  */
 #pragma once
 #include <boost/multiprecision/gmp.hpp>
+#include "../Erd.hpp"
 #include <boost/program_options.hpp>
 
 #include "CountingOperation.hpp"

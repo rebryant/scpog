@@ -20,6 +20,7 @@
 
 #include <boost/math/special_functions/math_fwd.hpp>
 #include <boost/multiprecision/gmp.hpp>
+#include "../Erd.hpp"
 #include <boost/program_options.hpp>
 
 #include "src/problem/ProblemTypes.hpp"

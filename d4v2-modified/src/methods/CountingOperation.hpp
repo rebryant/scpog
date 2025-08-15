@@ -18,10 +18,20 @@
 #pragma once
 #include <boost/multiprecision/cpp_dec_float.hpp>
 #include <boost/multiprecision/detail/default_ops.hpp>
+#include "../Erd.hpp"
 #include <boost/multiprecision/gmp.hpp>
 
 #include "DataBranch.hpp"
 #include "src/exceptions/BadBehaviourException.hpp"
+
+static Erd my_log10(Erd a) { return a.log10(); }
+
+static boost::multiprecision::cpp_dec_float_100 my_log10(boost::multiprecision::mpz_int a)
+  { return boost::multiprecision::log10(boost::multiprecision::cpp_dec_float_100(a));}
+
+static boost::multiprecision::cpp_dec_float_100 my_log10(boost::multiprecision::mpf_float a)
+  { return boost::multiprecision::log10(boost::multiprecision::cpp_dec_float_100(a));}
+
 
 namespace d4 {
 template <class T, class U>
@@ -149,18 +159,20 @@ class CountingOperation : public Operation<T, T> {
         out << "s SATISFIABLE\n";
         out << "c " << format << "\n";
         out << "c s log10-estimate "
-            << boost::multiprecision::log10(
-                   boost::multiprecision::cpp_dec_float_100(result))
+	    << my_log10(result)
+	  //            << boost::multiprecision::log10(
+	  //                   boost::multiprecision::cpp_dec_float_100(result))
             << "\n";
         if (vm["float"].as<bool>())
-          out << "c s exact quadruple int " << result << "\n";
+          out << "c s exact float " << result << "\n";
         else
           out << "c s exact arb int " << result << "\n";
       }
     } else {
-      assert(outFormat == "classic");
-      out << format << " ";
-      out << std::fixed << std::setprecision(50) << result << "\n";
+      out "s " << result << "\n";
+      //      assert(outFormat == "classic");
+      //      out << format << " ";
+      //      out << std::fixed << std::setprecision(50) << result << "\n";
     }
   }  // manageResult
 
