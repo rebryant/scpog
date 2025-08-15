@@ -146,9 +146,9 @@ class CountingOperation : public Operation<T, T> {
     std::string outFormat = vm["output-format"].as<std::string>();
 
     if (outFormat == "competition") {
-      boost::multiprecision::mpf_float::default_precision(128);
-      out.precision(std::numeric_limits<
-                    boost::multiprecision::cpp_dec_float_50>::digits10);
+      //      boost::multiprecision::mpf_float::default_precision(64);
+      // out.precision(std::numeric_limits<
+      //              boost::multiprecision::cpp_dec_float_50>::digits10);
 
       if (result == 0) {
         out << "s UNSATISFIABLE\n";
@@ -169,7 +169,7 @@ class CountingOperation : public Operation<T, T> {
           out << "c s exact arb int " << result << "\n";
       }
     } else {
-      out "s " << result << "\n";
+      out << "s " << result << "\n";
       //      assert(outFormat == "classic");
       //      out << format << " ";
       //      out << std::fixed << std::setprecision(50) << result << "\n";

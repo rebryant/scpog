@@ -35,7 +35,7 @@
 ("cache-activated", boost::program_options::value<bool>()->default_value(true), "Activate or not the cache.")
 ("cache-method", boost::program_options::value<std::string>()->default_value("list"), "The way the collision are handled (no-collision or list).")
 ("phase-heuristic-reversed,pha", boost::program_options::value<bool>()->default_value(false), "Consider or not the reverse of the current phase.")
-("float-precision,fp", boost::program_options::value<int>()->default_value(128), "The precision for the float.")
+("float-precision,fp", boost::program_options::value<int>()->default_value(53), "The precision for the float (< 64 ==> ERD).")
 ("float,f", boost::program_options::value<bool>()->default_value(false), "If the count is computed as a float or not.")
 ("dump-ddnnf", boost::program_options::value<std::string>(), "Print out the decision DNNF formula in a given file.")
 ("query,q", boost::program_options::value<std::string>(), "Perform the queries given in a file (m l1 l2 ... ln 0 for a model counting query, and d l1 l2 ... ln 0 for a satisfiability query).")

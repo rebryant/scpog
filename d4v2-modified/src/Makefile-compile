@@ -35,6 +35,7 @@ clean:
 	cd solvers; make clean -f Makefile-compile
 	cd specs; make clean -f Makefile-compile
 	cd utils; make clean -f Makefile-compile
+	rm -f *.o
 	rm -f *~
 
 .SUFFIXES: .o .cpp
