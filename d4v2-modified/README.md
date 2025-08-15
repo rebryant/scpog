@@ -6,6 +6,8 @@ Modifications include the following:
    * Support for SCPOG generation.
      	When the --skolemize flag is set to 1, it will include quantified literals in the DNNF output
    * A quiet flag.  Set --quiet to 1
+   * Integration of extended-range double (ERD) numeric representation.  Made it the default.
+        Set --float-precision to 64 above to get MPF
    * Compatible with LLVM compiler for x86 and ARM-based Macs.
         This involved changing some names of included files and eliminating library code only provided with GCC.
    * Use standard makefiles, rather than the ninja build system
